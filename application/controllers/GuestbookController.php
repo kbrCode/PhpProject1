@@ -12,6 +12,10 @@ class GuestbookController extends Zend_Controller_Action
     {
         $guestbook = new Application_Model_GuestbookMapper();
         $this->view->entries = $guestbook->fetchAll();
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $this->view->identity = $auth->getIdentity();
+        }        
     }
 
     public function signAction()
