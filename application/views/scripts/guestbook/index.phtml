@@ -43,5 +43,14 @@ Guestbook Entries: <br />
     <?php foreach ($this->entries as $entry): ?>
     <dt><?php echo $this->escape($entry->email) ?></dt>
     <dd><?php echo $this->escape($entry->comment) ?></dd>
+    <dd><a href="<?php echo $this->url(
+    array(
+        'controller' => 'guestbook',
+        'action'     => 'remove',
+        'id'         => $entry->id
+    ),
+    'default',
+    true) ?>">Remove</a></dd>
+    
     <?php endforeach ?>
 </dl>

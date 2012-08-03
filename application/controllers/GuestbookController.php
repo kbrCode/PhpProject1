@@ -34,7 +34,19 @@ class GuestbookController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
+    public function removeAction()
+    {
+        if ($this->getRequest()->isPost()) {
+            $id = $this->getRequest()->getParam('id');
+            Zend_Debug::dump($id, 'id', $echo = true);
+            $mapper = new Application_Model_GuestbookMapper();
+            $mapper->delete($id);
+        }
+        return $this->_helper->redirector('index');
+    }
 }
+
+
 
 
 

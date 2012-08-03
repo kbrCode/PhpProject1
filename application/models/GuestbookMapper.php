@@ -39,8 +39,15 @@ class Application_Model_GuestbookMapper
             $this->getDbTable()->update($data, array('id = ?' => $id));
         }
     }
- 
-    public function find($id, Application_Model_Guestbook $guestbook)
+    
+    public function delete($id){
+        $result = $this->getDbTable()->delete($id);
+        if (0 == count($result)) {
+            return;
+        }
+    }
+
+        public function find($id, Application_Model_Guestbook $guestbook)
     {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {
