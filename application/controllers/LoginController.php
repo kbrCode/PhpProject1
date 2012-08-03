@@ -18,20 +18,23 @@ class LoginController extends Zend_Controller_Action
     
     public function loginAction()
     {
-        $form = new Form_Login();
-        $form->setAction('/login')->setMethod('post');
+        $form = new Application_Form_Login();
+        $form->setAction('')->setMethod('post');
+
         if ($this->_request->isPost() && $form->isValid($_POST)) {
             // pobieramy dane z formularza
             $data = $form->getValues();
             // pobieramy domyślny adapter bazy danych
             $db = Zend_Db_Table::getDefaultAdapter();
             // tworzymy instancję adaptera autoryzacji
-            $authAdapter = new Zend_Auth_Adapter_DbTable($db, 'uzytkownicy',  'haslo');
+            //$authAdapter = new Zend_Auth_Adapter_DbTable($db, 'users',  'password');
+             $authAdapter = new Zend_Auth_Adapter_DbTable($db, 'users', 'username', 'password');
             // wprowadzamy dane do adaptera
-            $authAdapter->setIdentity($data['email']);
-            $authAdapter->setCredential(md5($data['password']));
-            // sprawdzamy, czy użytkownik jest aktywny
-            $authAdapter->setCredentialTreatment("? AND status = '1'");
+            $authAdapter->setIdentity($data['username']);
+            //$authAdapter->setCredential(md5($data['password']));
+            $authAdapter->setCredential($data['password']);
+//            // sprawdzamy, czy użytkownik jest aktywny
+//            $authAdapter->setCredentialTreatment("? AND status = '1'");
             // autoryzacja
             $result = $authAdapter->authenticate();
             if ($result->isValid()) {
@@ -39,7 +42,7 @@ class LoginController extends Zend_Controller_Action
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(array(
-                            'id', 'email', 'imie', 'nazwisko', 'rola'
+                            'id', 'username', 'real_name', 'role'
                         )));
                 return $this->_redirect('/');
             } else {

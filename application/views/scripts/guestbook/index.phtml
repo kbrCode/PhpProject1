@@ -5,10 +5,29 @@
 
 <?php
   if ($this->identity == null) { ?>
-    <p>Aby się zalogować <a href="/uzytkownicy/login">kliknij tutaj</a></p>
-  <?php } else { ?>
-    <p>Witaj <strong><?php echo $this->identity->imie; ?></strong></p>
-    <p>Aby się wylogować <a href="/uzytkownicy/logout">kliknij tutaj</a></p>
+    
+    <p>Witaj samotny wędrowcze. Aby się zalogować <a href="<?php
+    echo $this->url(
+            array(
+        'controller' => 'login',
+        'action' => 'login'
+            ), 'default', true)
+    ?>">kliknij tutaj</a></p>
+  <?php 
+  
+  } else { ?>
+<p>Witaj <strong><?php echo $this->identity->real_name; ?></strong> Znany jako: <strong><?php echo $this->identity->username; ?></strong></p>
+ <?php // print_r($this->identity);?>
+
+    
+    <p>Aby się wylogować <a href="<?php
+    echo $this->url(
+            array(
+        'controller' => 'login',
+        'action' => 'logout'
+            ), 'default', true)
+    ?>">kliknij tutaj</a></p>
+    
   <?php } ?>
 
 <p><a href="<?php echo $this->url(
