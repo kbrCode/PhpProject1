@@ -29,6 +29,8 @@
     ?>">kliknij tutaj</a></p>
     
   <?php } ?>
+    
+    
 
 <p><a href="<?php echo $this->url(
     array(
@@ -40,9 +42,19 @@
  
 Guestbook Entries: <br />
 <dl>
+    <?php //print_r($this->acl);?>
     <?php foreach ($this->entries as $entry): ?>
+    <?php //Zend_Debug::dump($entry, 'entry', $echo=true);?>
     <dt><?php echo $this->escape($entry->email) ?></dt>
     <dd><?php echo $this->escape($entry->comment) ?></dd>
+    
+    <?php 
+            if($this->identity != null) 
+            {
+
+            if ($this->acl->isAllowed($this->identity->role, null, 'deleteGestbook')) 
+            {
+                ?>
     <dd><a href="<?php echo $this->url(
     array(
         'controller' => 'guestbook',
@@ -51,6 +63,7 @@ Guestbook Entries: <br />
     ),
     'default',
     true) ?>">Remove</a></dd>
-    
+            <?php }
+        } ?>
     <?php endforeach ?>
 </dl>

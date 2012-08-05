@@ -41,8 +41,10 @@ class Application_Model_GuestbookMapper
     }
     
     public function delete($id){
-        $result = $this->getDbTable()->delete($id);
+        $where = $this->getDbTable()->getAdapter()->quoteInto('id = ?', $id);
+        $result = $this->getDbTable()->delete($where);
         if (0 == count($result)) {
+            throw new Exception('Nie znaleziono id ', $id);
             return;
         }
     }

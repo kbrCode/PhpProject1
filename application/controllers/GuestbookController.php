@@ -15,7 +15,9 @@ class GuestbookController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $this->view->identity = $auth->getIdentity();
-        }        
+        }
+        $namespace = new Zend_Session_Namespace();
+        $this->view->acl = $namespace->acl;
     }
 
     public function signAction()
@@ -36,12 +38,12 @@ class GuestbookController extends Zend_Controller_Action
 
     public function removeAction()
     {
-        if ($this->getRequest()->isPost()) {
+        print_r($this->getRequest());
+        //if ($this->getRequest()->isPost()) {
             $id = $this->getRequest()->getParam('id');
-            Zend_Debug::dump($id, 'id', $echo = true);
             $mapper = new Application_Model_GuestbookMapper();
             $mapper->delete($id);
-        }
+        //}
         return $this->_helper->redirector('index');
     }
 }

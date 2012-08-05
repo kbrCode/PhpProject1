@@ -18,6 +18,7 @@ public function _initCoreSession()
     $this->bootstrap('db');  
     $this->bootstrap('session');  
     Zend_Session::start();  
+    Zend_Registry::getInstance();
 }  
 
 }
