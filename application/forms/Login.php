@@ -75,10 +75,10 @@ class Application_Form_Login extends Zend_Form
             )
         ));
 
-        // And finally add some CSRF protection
-        $this->addElement('hash', 'csrf', array(
-            'ignore' => true,
-        ));
+//        // And finally add some CSRF protection
+//        $this->addElement('hash', 'csrf', array(
+//            'ignore' => true,
+//        ));
     }        
         
 }

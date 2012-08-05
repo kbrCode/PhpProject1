@@ -44,7 +44,7 @@ class LoginController extends Zend_Controller_Action
                 $storage->write($authAdapter->getResultRowObject(array(
                             'id', 'username', 'real_name', 'role'
                         )));
-                return $this->_redirect('/');
+                return $this->_redirect('guestbook');
             } else {
                 $this->view->loginMessage = "Niepoprawny login lub hasło";
             }
