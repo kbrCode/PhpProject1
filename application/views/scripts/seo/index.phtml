@@ -1,0 +1,69 @@
+<br /><br />
+<div id="view-content">
+	<p>View script for controller <b>Seo</b> and script/action name <b>index/manage </b></p>
+        
+<table border="1" bordercolor="FFCC00" style="background-color:FFFFCC" width="400" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+    <?php 
+    
+            if($this->identity != null) 
+            {
+
+            if ($this->acl->isAllowed($this->identity->role, null, 'editSeo')) 
+            {
+                ?>
+
+            <td>
+           
+    <a href="<?php echo $this->url(
+    array(
+        'controller' => 'seo',
+        'action'     => 'edit',
+        'id'         => 1
+    ),
+    'default',
+    true) ?>">Edit</a>
+            </td>
+
+            <?php } 
+        } ?>
+        
+    <?php 
+            if($this->identity != null) 
+            {
+
+            if ($this->acl->isAllowed($this->identity->role, null, 'deleteSeo')) 
+            {
+                ?>
+        <td>
+    <a href="<?php echo $this->url(
+    array(
+        'controller' => 'seo',
+        'action'     => 'remove',
+        'id'         => 1
+    ),
+    'default',
+    true) ?>">Remove</a>
+        </td>
+            <?php }
+        } ?>
+        </tr>
+        
+</table>
+        
+<p><a href="<?php echo $this->url(
+    array(
+        'controller' => 'guestbook'
+//        'action'     => 'return'
+    ),
+    'default',
+    true) ?>">Return to guestbook</a></p>
+
+        
+<p style="font-family:verdana,arial,sans-serif;font-size:10px;"><a href="http://www.quackit.com/html/html_table_tutorial.cfm" target="_top">HTML Tables</a></p>
+
+
+
+</div>

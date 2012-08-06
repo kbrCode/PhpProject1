@@ -28,7 +28,7 @@ class IndexController extends Zend_Controller_Action
 		
 		// Editor inherits view, edit, submit, and revise privileges from
 		// staff, but also needs additional privileges
-		$acl->allow('member', null, array('addGestbook', 'deleteGestbook'));
+		$acl->allow('member', null, array('addGestbook', 'deleteGestbook', 'editSeo'));
 		
 		// Administrator inherits nothing, but is allowed all privileges
 		$acl->allow('admin');
