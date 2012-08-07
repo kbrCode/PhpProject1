@@ -45,6 +45,7 @@
         <modelFile modelName="GuestbookMapper"/>
         <modelFile modelName="Guestbook"/>
         <modelFile modelName="SeoMapper"/>
+        <modelFile modelName="Seo"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>

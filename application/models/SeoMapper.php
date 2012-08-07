@@ -24,15 +24,19 @@ class Application_Model_SeoMapper
         return $this->_dbTable;
     }
     
-    public function save(Application_Model_Guestbook $guestbook)
+    public function save(Application_Model_Seo $seo)
     {
         $data = array(
-            'email'   => $guestbook->getEmail(),
-            'comment' => $guestbook->getComment(),
-            'created' => date('Y-m-d H:i:s'),
+            'jezyk_kod' => $seo->getJezyk_kod(),
+            'seourl'    => $seo->getSeourl(),
+            'zendurl'   => $seo->getZendurl(),
+            'anchor'    => $seo->getAnchor(),
+            'aktywny'   => $seo->getAktywny(),
+            'router'    => $seo->getRouter(),
+            'label'     => $seo->getLabel(),
         );
  
-        if (null === ($id = $guestbook->getId())) {
+        if (null === ($id = $seo->getId())) {
             unset($data['id']);
             $this->getDbTable()->insert($data);
         } else {
@@ -48,30 +52,39 @@ class Application_Model_SeoMapper
             return;
         }
     }
-
-        public function find($id, Application_Model_Guestbook $guestbook)
+    
+        public function find($id, Application_Model_Seo $seo)
     {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {
             return;
         }
+        
         $row = $result->current();
-        $guestbook->setId($row->id)
-                  ->setEmail($row->email)
-                  ->setComment($row->comment)
-                  ->setCreated($row->created);
+        $seo = $this->copy($row);
     }
- 
+    
+    private function copy($row)
+    {
+            $seo = new Application_Model_Seo();
+        $seo->setId($row->id)
+            -> $seo->setJezyk_kod($row->jezyk_kod)
+            -> $seo->setSeourl($row->seourl)
+            -> $seo->setZendurl($row->zendurl)
+            -> $seo->setAnchor($row->anchor)
+            -> $seo->setAktywny($row->aktywny)
+            -> $seo->setRouter($row->router)
+            -> $seo->setLabel($row->label);
+            return $seo;
+    }
+
+
     public function fetchAll()
     {
         $resultSet = $this->getDbTable()->fetchAll();
         $entries   = array();
         foreach ($resultSet as $row) {
-            $entry = new Application_Model_Guestbook();
-            $entry->setId($row->id)
-                  ->setEmail($row->email)
-                  ->setComment($row->comment)
-                  ->setCreated($row->created);
+            $entry = copy($row);
             $entries[] = $entry;
         }
         return $entries;
