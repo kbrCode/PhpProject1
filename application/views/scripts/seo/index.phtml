@@ -3,9 +3,19 @@
 	<p>View script for controller <b>Seo</b> and script/action name <b>index/manage </b></p>
         
 <table border="1" bordercolor="FFCC00" style="background-color:FFFFCC" width="400" cellpadding="3" cellspacing="3">
+    
+        <?php foreach ($this->entries as $entry): ?>
+</dl>    
+    
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td><?php echo $this->escape($entry->jezyk_kod) ?></td>
+		<td><?php echo $this->escape($entry->seourl) ?></td>
+		<td><?php echo $this->escape($entry->zendurl)?></td>
+		<td><?php echo $this->escape($entry->anchor) ?></td>
+		<td><?php echo $this->escape($entry->aktywny)?></td>
+  		<td><?php echo $this->escape($entry->router) ?></td>
+		<td><?php echo $this->escape($entry->label)?></td>
+                  
     <?php 
     
             if($this->identity != null) 
@@ -21,7 +31,7 @@
     array(
         'controller' => 'seo',
         'action'     => 'edit',
-        'id'         => 1
+        'id'         => $entry->id
     ),
     'default',
     true) ?>">Edit</a>
@@ -42,7 +52,7 @@
     array(
         'controller' => 'seo',
         'action'     => 'remove',
-        'id'         => 1
+        'id'         => $entry->id
     ),
     'default',
     true) ?>">Remove</a>
@@ -50,6 +60,7 @@
             <?php }
         } ?>
         </tr>
+    <?php endforeach ?>        
         
 </table>
         

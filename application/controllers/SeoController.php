@@ -12,6 +12,9 @@ class SeoController extends Zend_Controller_Action
         }
         $namespace = new Zend_Session_Namespace();
         $this->view->acl = $namespace->acl;
+        
+        $seo = new Application_Model_SeoMapper();
+        $this->view->entries = $seo->fetchAll();
     }
 
     public function indexAction()

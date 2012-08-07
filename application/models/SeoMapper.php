@@ -19,7 +19,7 @@ class Application_Model_SeoMapper
     public function getDbTable()
     {
         if (null === $this->_dbTable) {
-            $this->setDbTable('Application_Model_SeoMapper');
+            $this->setDbTable('Application_Model_DbTable_Seo');
         }
         return $this->_dbTable;
     }
@@ -53,15 +53,35 @@ class Application_Model_SeoMapper
         }
     }
     
-        public function find($id, Application_Model_Seo $seo)
+    public function findByID($id)
     {
         $result = $this->getDbTable()->find($id);
         if (0 == count($result)) {
             return;
         }
-        
         $row = $result->current();
         $seo = $this->copy($row);
+        return $seo;
+    }
+    
+    public function findBYObj(Application_Model_Seo $seo)
+    {
+        if($seo->id != NULL)
+        {
+            $result = $this->getDbTable()->find($seo->id);
+        }
+        else
+        {
+            $sql = $this->getAdapter()
+                ->select()->from(Array('s'=>'guestbook_seo'))->where('s.aktywny=?', 'tak')->where(Array('anchor'=> $seo->getAnchor()));
+            $result = $this->getAdapter()->fetchRow($sql);            
+        }
+        if (0 == count($result)) {
+            return FALSE;
+        }
+        $row = $result->current();
+        $seo = $this->copy($row);
+        return TRUE;
     }
     
     private function copy($row)
