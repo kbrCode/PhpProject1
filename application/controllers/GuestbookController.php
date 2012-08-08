@@ -10,6 +10,7 @@ class GuestbookController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        print_r($this->getRequest()->getParams());
         $guestbook = new Application_Model_GuestbookMapper();
         $this->view->entries = $guestbook->fetchAll();
         $auth = Zend_Auth::getInstance();

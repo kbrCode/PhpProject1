@@ -26,6 +26,10 @@ class Application_Model_SeoMapper
     
     public function save(Application_Model_Seo $seo)
     {
+        if($this->findBYObj($seo))
+        {
+            throw new Exception('Taki seo już istnieje');
+        }
         $data = array(
             'jezyk_kod' => $seo->getJezyk_kod(),
             'seourl'    => $seo->getSeourl(),
@@ -60,22 +64,21 @@ class Application_Model_SeoMapper
             return;
         }
         $row = $result->current();
-        $seo = $this->copy($row);
+        $seo = $this->copyElem($row);
         return $seo;
     }
     
     public function findBYObj(Application_Model_Seo $seo)
     {
-        if($seo->id != NULL)
-        {
-            $result = $this->getDbTable()->find($seo->id);
-        }
-        else
-        {
-            $sql = $this->getAdapter()
-                ->select()->from(Array('s'=>'guestbook_seo'))->where('s.aktywny=?', 'tak')->where(Array('anchor'=> $seo->getAnchor()));
-            $result = $this->getAdapter()->fetchRow($sql);            
-        }
+        $sql = $this->getDbTable()->getAdapter()
+            ->select()->from(Array('s'=>'guestbook_seo'))
+                ->where('s.aktywny=?', 'tak')->where('anchor=?', $seo->getAnchor());
+        
+//        $sql = $this->getDbTable()->getAdapter()
+//            ->select()->from(Array('s'=>'guestbook_seo'));
+        
+        //$result = $this->getDbTable()->getAdapter()->fetchRow($sql);            
+        $result = $this->getDbTable()->getAdapter()->fetchAll($sql);            
         if (0 == count($result)) {
             return FALSE;
         }
@@ -84,18 +87,18 @@ class Application_Model_SeoMapper
         return TRUE;
     }
     
-    private function copy($row)
+    private function copyElem($row)
     {
-            $seo = new Application_Model_Seo();
-        $seo->setId($row->id)
-            -> $seo->setJezyk_kod($row->jezyk_kod)
-            -> $seo->setSeourl($row->seourl)
-            -> $seo->setZendurl($row->zendurl)
-            -> $seo->setAnchor($row->anchor)
-            -> $seo->setAktywny($row->aktywny)
-            -> $seo->setRouter($row->router)
-            -> $seo->setLabel($row->label);
-            return $seo;
+        $seo = new Application_Model_Seo();
+        $seo->setId($row->id);
+        $seo->setJezyk_kod($row->jezyk_kod);
+        $seo->setSeourl($row->seourl);
+        $seo-> setZendurl($row->zendurl);
+        $seo-> setAnchor($row->anchor);
+        $seo-> setAktywny($row->aktywny);
+        $seo-> setRouter($row->router);
+        $seo-> setLabel($row->label);
+        return $seo;
     }
 
 
@@ -104,7 +107,7 @@ class Application_Model_SeoMapper
         $resultSet = $this->getDbTable()->fetchAll();
         $entries   = array();
         foreach ($resultSet as $row) {
-            $entry = copy($row);
+            $entry = $this->copyElem($row);
             $entries[] = $entry;
         }
         return $entries;

@@ -2,6 +2,15 @@
 <div id="view-content">
 	<p>View script for controller <b>Seo</b> and script/action name <b>index/manage </b></p>
         
+    <a href="<?php echo $this->url(
+    array(
+        'controller' => 'seo',
+        'action'     => 'add'
+    ),
+    'default',
+    true) ?>">Add new Seo</a>
+
+        
 <table border="1" bordercolor="FFCC00" style="background-color:FFFFCC" width="400" cellpadding="3" cellspacing="3">
     
         <?php foreach ($this->entries as $entry): ?>
@@ -15,7 +24,6 @@
 		<td><?php echo $this->escape($entry->aktywny)?></td>
   		<td><?php echo $this->escape($entry->router) ?></td>
 		<td><?php echo $this->escape($entry->label)?></td>
-                  
     <?php 
     
             if($this->identity != null) 

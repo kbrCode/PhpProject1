@@ -27,8 +27,72 @@ class SeoController extends Zend_Controller_Action
         // action body
     }
 
+    public function addAction()
+    {
+        // action body
+        $request = $this->getRequest();
+
+        $form = new Application_Form_SeoManagement();
+
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($request->getPost())) {
+
+                $seo = new Application_Model_Seo($form->getValues());
+                //print_r($seo);
+                $mapper = new Application_Model_SeoMapper();
+//                echo '<pre>';
+//                print_r($seo);
+//                echo '</pre>';                
+                $mapper->save($seo);
+                return $this->_helper->redirector('index');
+            }
+        }
+        $this->view->form = $form;
+    }
+
+    public function editAction()
+    {
+        // action body
+        $request = $this->getRequest();
+        
+        $seoM = new Application_Model_SeoMapper();
+        $id = $this->getRequest()->getParam('id');
+        $seo = $this->view->entries = $seoM->findByID($id);
+        
+        $form = new Application_Form_SeoManagement();
+        $array  = (array)$seo;
+
+                echo '<pre>';
+                print_r($array);
+                echo '</pre>';                
+        
+        $form->setDefaults($array);
+        
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($request->getPost())) {
+                $seo = new Application_Model_Seo($form->getValues());
+                $mapper = new Application_Model_SeoMapper();
+                $mapper->save($seo);
+                return $this->_helper->redirector('index');
+            }
+        }
+        $this->view->form = $form;
+        
+    }
+
+    public function removeAction()
+    {
+        // action body
+    }
+
 
 }
+
+
+
+
+
+
 
 
 

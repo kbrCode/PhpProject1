@@ -25,6 +25,9 @@
         <controllerFile controllerName="Seo">
           <actionMethod actionName="index"/>
           <actionMethod actionName="return"/>
+          <actionMethod actionName="addNew"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="remove"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -79,6 +82,15 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Seo">
             <viewScriptFile forActionName="return"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Seo">
+            <viewScriptFile forActionName="addNew"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Seo">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Seo">
+            <viewScriptFile forActionName="remove"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
