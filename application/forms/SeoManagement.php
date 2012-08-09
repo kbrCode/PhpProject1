@@ -7,21 +7,8 @@ class Application_Form_SeoManagement extends Zend_Form
         /* Form Elements & Other Definitions Here ... */
         $this->setMethod('post');
         
-    $jezyk_kod = $this->createElement('text', 'id');
-        $jezyk_kod->setLabel('Język:')
-                ->setRequired(TRUE)
-                ->setAttrib('size', 11)
-                ->addFilters(array(
-                    new Zend_Filter_StringToLower(),
-                    new Zend_Filter_StringTrim(),
-                    new Zend_Filter_StripNewlines(),
-                    new Zend_Filter_StripTags()
-                ))
-                ->addValidators(array(
-                    new Zend_Validate_NotEmpty()
-                ));
-        $this->addElement($jezyk_kod);
-        
+        $id = $this->createElement('hidden', 'id');
+        $this->addElement($id);
         
     $jezyk_kod = $this->createElement('text', 'jezyk_kod');
         $jezyk_kod->setLabel('Język:')

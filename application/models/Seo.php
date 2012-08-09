@@ -40,8 +40,21 @@ class Application_Model_Seo
         return $this;
     }
     
-    
-  protected $id;
+    public function toArray() {
+        $options = array();
+        $methods = get_class_methods($this);
+        foreach ($methods as $key)
+        {
+            if (substr($key, 0, 3) == 'get') {
+                $value = $this->$key();
+                $fieldName = substr($key, 3);
+                $options[lcfirst($fieldName)] = $value;
+            }
+        }
+        return $options;
+    }
+
+    protected $id;
   public function getId() {
       return $this->id;
   }

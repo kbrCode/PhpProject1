@@ -57,16 +57,11 @@ class SeoController extends Zend_Controller_Action
         
         $seoM = new Application_Model_SeoMapper();
         $id = $this->getRequest()->getParam('id');
-        $seo = $this->view->entries = $seoM->findByID($id);
+        $seo = $seoM->findByID($id);
+        $arr = $seo->toArray();
         
         $form = new Application_Form_SeoManagement();
-        $array  = (array)$seo;
-
-                echo '<pre>';
-                print_r($array);
-                echo '</pre>';                
-        
-        $form->setDefaults($array);
+        $form->setDefaults($arr);
         
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($request->getPost())) {

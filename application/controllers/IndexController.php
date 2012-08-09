@@ -17,7 +17,7 @@ class IndexController extends Zend_Controller_Action
 		// Guest does not inherit access controls
 		$roleGuest = new Zend_Acl_Role('guest');
 		$admin = new Zend_Acl_Role('admin');
-		
+                
 		$acl->addRole($roleGuest)
 		->addRole(new Zend_Acl_Role('member'))
 		->addRole(new Zend_Acl_Role($admin));

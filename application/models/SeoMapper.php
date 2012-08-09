@@ -68,6 +68,17 @@ class Application_Model_SeoMapper
         return $seo;
     }
     
+    public function findByIDReturnRow($id)
+    {
+        $result = $this->getDbTable()->find($id);
+        if (0 == count($result)) {
+            return NULL;
+        }
+        $row = $result->current();
+        return $row;
+    }
+    
+    
     public function findBYObj(Application_Model_Seo $seo)
     {
         $sql = $this->getDbTable()->getAdapter()
