@@ -86,8 +86,8 @@ class Application_Form_SeoManagement extends Zend_Form
         $aktywny = new Zend_Form_Element_Select('aktywny');
         $aktywny ->setLabel('Aktywny:')
             ->addMultiOptions(array(
-                    'Yes' => 'Tak',
-                    'No' => 'Nie' 
+                    'Tak' => 'Tak',
+                    'Nie' => 'Nie' 
                         ));
         $this->addElement($aktywny);        
         
